@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tableau and SQL Tracker</title>
+    <style>
+        /* ... (CSS styles remain the same) */
+		 body {
+            font-family: Arial, sans-serif;
+        }
+        #tabs {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+        }
+        #tabs button, .sub-tabs button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            margin-right: 5px;
+            background-color: #f9f9f9;
+        }
+        #tabs button.active, .sub-tabs button.active {
+            background-color: #e0e0e0;
+        }
+        .tab-content, .sub-tab-content {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+            display: none;
+        }
+        .tab-content.active, .sub-tab-content.active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .topic-row {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="tabs">
+    <button onclick="openTab('Ignition')" id="ignitionTabButton" class="active">Ignition</button>
+    <button onclick="openTab('Tableau')" id="tableauTabButton">Tableau</button>
+    <button onclick="openTab('SQL')" id="sqlTabButton">SQL</button>
+	<button onclick="openTab('PLC')" id="PLCTabButton" class="active">PLC</button>
+	<button onclick="openTab('Litmus')" id ="LitmusTabButton">Litmus</button>
+</div>
+
+<div id="Ignition" class="tab-content active">
+    <h2>Ignition</h2>
+    <p>Placeholder content for Ignition tab.</p>
+</div>
+
+<div id="Tableau" class="tab-content">
+    <h2>Tableau</h2>
+    <div class="sub-tabs">
+        <button onclick="openSubTab('TableauFundamentals')" class="active">Tableau Fundamentals</button>
+        <button onclick="openSubTab('TableauIntermediate')">Tableau Intermediate</button>
+        <button onclick="openSubTab('TableauAdvanced')">Tableau Advanced</button>
+    </div>
+
+    <div id="TableauFundamentals" class="sub-tab-content active">
+        <table id="tableauTableFundamentals"></table>
+    </div>
+    <div id="TableauIntermediate" class="sub-tab-content">
+        <table id="tableauTableIntermediate"></table>
+    </div>
+    <div id="TableauAdvanced" class="sub-tab-content">
+        <table id="tableauTableAdvanced"></table>
+    </div>
+</div>
+
+<div id="SQL" class="tab-content">
+    <h2>SQL</h2>
+    <div class="sub-tabs">
+        <button onclick="openSubTab('SQLEdX')" class="active">edX</button>
+        <button onclick="openSubTab('SQLCoursera')">Coursera</button>
+        <button onclick="openSubTab('SQLHarvard')">Harvard</button>
+        <button onclick="openSubTab('SQLLinkedIn')">LinkedIn</button>
+        <button onclick="openSubTab('SQLCodecademy')">Codecademy</button>
+    </div>
+
+    <div id="SQLEdX" class="sub-tab-content active">
+        <table id="sqlTableEdX"></table>
+    </div>
+    <div id="SQLCoursera" class="sub-tab-content">
+        <table id="sqlTableCoursera"></table>
+    </div>
+    <div id="SQLHarvard" class="sub-tab-content">
+        <table id="sqlTableHarvard"></table>
+    </div>
+    <div id="SQLLinkedIn" class="sub-tab-content">
+        <table id="sqlTableLinkedIn"></table>
+    </div>
+    <div id="SQLCodecademy" class="sub-tab-content">
+        <table id="sqlTableCodecademy"></table>
+    </div>
+</div>
+
+<div id="PLC" class="tab-content active">
+	<h2>PLC</h2>
+	<p>Placeholder content for PLC Tab.</p>
+</div>
+
+<div id="Litmus" class="tab-content active">
+	<h2>Litmus</h2>
+	<p>Placeholder content for Litmus Tab.</p>
+</div>
+
+<script>
+const topicsFundamentals = {
+    "Connect to and Customize Data": [
+        "Connecting to Data", "Customizing a Data Source", "Working with a Data Extract"
+    ],
+    "Organize Data and Create Filters": [
+        "Creating Groups in Your Data", "Creating Hierarchies in Your Data", "Understanding Filtering in Tableau", "Filtering Your Data", "Sorting Your Data", "Using Sets to Highlight Data"
+    ],
+    "Build Common Views": [
+        "Working with Dates to Visualize Time-Based Data", "Creating Custom Date Fields and Hierarchies", "Comparing Multiple Measures in Views", "Using Scatter Plots To Show Relationships Between Measures", "Creating Spreadsheet-like Views Using Text Tables", "Using a Highlight Table to Show Specific Values", "Showing Breakdowns of the Whole Using Pie Charts", "Showing Breakdowns of the Whole Using Tree Maps", "Using Bar-in-Bar Charts and Bullet Graphs to Compare Measures"
+    ],
+	"Map Geographic Data": [
+        "Creating Symbol and Filled Maps", "Creating a Density Map"
+    ],
+    "Create Calculated Fields": [
+        "Creating Calculated Fields for Deeper Analysis", "Working with String and Type Conversion Functions", "Working with Date Functions", "Working with Aggregate Functions"
+    ],
+    "Apply Table Calculations": [
+        "Using Quick Table Calculations to Analyze Data"
+    ],
+	"Apply Analytics": [
+        "Highlighting Values with Reference Lines and Bands", "Using Parameters to Control Data in the View", "Using Histograms and Box & Whisker Plots to Show Distribution"
+    ],
+    "Work with Multiple Data Sources": [
+        "Creating Relationships between Tables", "Joining Tables Using a Common Field", "Using Unions to Combine Data", "Blending Multiple Data Sources Using a Common Field"
+    ],
+    "Create Dashboards and Stories": [
+        "Building a Dashboard", "Creating Interactive Dashboards Using Actions", "Refining a Dashboard", "Telling Stories with Data"
+    ],
+    "Share and Publish Content": [
+        "Publishing Workbooks", "Exporting and Downloading Content"
+    ],
+    "Course Survey": [
+        "Hey Data Rock Star, we would appreciate your feedback! (optional)"
+    ]
+};
+
+const topicsIntermediate = {
+    "Restructure Data and Create Filters": [
+        "Restructuring Data", "Using Context Filters to Limit Scope"
+    ],
+   	"Do More with Data Sources":[
+		"Replacing Data Sources for Views", "Applying Custom SQL in Tableau", "Combining Tables Using Relationship and Join Calculations", "Creating Unions Using a Wildcard Search", "Addressing Challenges With Blended Data", "Deciding Which Method to Use for Combining Data"
+	],
+	"Create Calculated Fields":[
+	"Aggregating Dimensions in Advanced Calculations"
+	],
+	 "Control Table Calculations": [
+        "Creating and Customizing Table Calculations",
+        "Writing Table Calculations in the Calculated Field Editor"
+    ],
+    "Create Level of Detail (LOD) Expressions": [
+        "Using Level of Detail Expressions",
+        "Using Filters with LOD Expressions",
+        "Using Fixed LOD Expressions for Cohort Analysis"
+    ],
+    "Apply Analytics": [
+        "Making Projections with Trend Lines and Forecasts",
+        "Using Parameters to Swap Measures"
+    ],
+    "Map Data: Use Best Practices": [
+        "Using Marks Layers to Show More Data",
+        "Using Best Practices to Make Effective Maps"
+    ],
+    "Customize Tableau’s Geocoding": [
+        "Module Overview",
+        "Demo: Customizing Geocodes for Addresses",
+        "Activity: Build a Map with Custom Geocoding"
+    ],
+    "Use a Background Image": [
+        "Module Overview",
+        "Concept: Plotting Data on a Custom Background",
+        "Demo: Adding an Image and Plotting Data",
+        "Activity: Plot Data on an Image"
+    ],
+    "Build Advanced Dashboards": [
+        "Navigating Between Dashboards",
+        "Using Show/Hide to Control Dashboard Containers",
+        "Creating Custom Color and Shape Palettes for Marks",
+        "Filtering Across Data Sources"
+    ],
+    "Publish and Manage Content": [
+        "Publishing and Managing Data Sources and Extracts",
+        "Publishing and Managing Tableau Prep Flows",
+        "Creating Custom Views, Subscriptions, and Alerts on Published Content"
+    ],
+    "Analyze Data with Tableau Pulse": [
+        "Using Tableau Pulse to Make Data-Driven Decisions",
+        "Creating and Configuring Tableau Pulse Metric Definitions"
+    ],
+    "Course Survey": [
+        "Hey Data Rock Star, we would appreciate your feedback! (optional)"
+    ]
+};
+
+const topicsAdvanced = {
+    "Course Overview": [
+        "Tableau Advanced: Description and Learning Objectives"
+    ],
+    "Review: Tableau Intermediate": [
+        "Review: Test Your Knowledge from Desktop II"
+    ],
+    "Review: Basic Calculations": [
+        "Module Overview",
+        "Demo: Comparing Existing Features and Calculations",
+        "Activity: Use String Calculations to Modify Text",
+        "Activity: Use a Date Calculation for a Dynamic Chart",
+        "Reference: String Functions",
+        "Reference: Date Functions",
+        "Reference: Logical Functions",
+        "Reference: Number Functions",
+        "Reference: Type Conversion Functions",
+        "Reference: Aggregate Functions"
+    ],
+    "Secondary Table Calculations": [
+        "Module Overview",
+        "Demo: Adding Secondary Calculations",
+        "Activity: Use a Secondary Table Calculation",
+        "Reference: Table Calculation Types"
+    ],
+    "Pareto Charts and Secondary Calculations": [
+        "Module Overview",
+        "Demo: Building a Pareto Chart",
+        "Activity: Create a Pareto Chart"
+    ],
+    "Level of Detail Expressions: INCLUDE": [
+        "Module Overview",
+        "Demo: Using an INCLUDE Expression"
+    ],
+    "Level of Detail Expressions: EXCLUDE": [
+        "Module Overview",
+        "Demo: Using an EXCLUDE Expression",
+        "Activity: Exclude Country to Show Regional Sales Totals"
+    ],
+    "Time-Based Data: Analyze with Sparklines": [
+        "Module Overview",
+        "Demo: Using Sparklines to Show Trends Over Time",
+        "Activity: Create a Chart with Sparklines"
+    ],
+    "Time-Based Data: Analyze with Slope Charts": [
+        "Module Overview",
+        "Demo: Using a Slope Chart to Tell a Before and After Story",
+        "Activity: Show the Slope of Name Rankings"
+    ],
+    "Time-Based Data: Analyze with Control Charts": [
+        "Module Overview",
+        "Demo: Monitoring Quality Control with a Control Chart",
+        "Activity: Create a Control Chart for Sales"
+    ],
+    "Seasonality: Show Trends with Cycle Plots": [
+        "Module Overview",
+        "Demo: Is There Seasonality in Your Data?",
+        "Activity: Create a Cycle Plot"
+    ],
+    "Customer Behavior: Analyze Survey Data": [
+        "Module Overview",
+        "Demo: Making Your Survey Data Visual",
+        "Activity: Work with Survey Data"
+    ],
+    "Geographic Analysis: Map Dense Data with Hexbins": [
+        "Module Overview",
+        "Concept: Use Hexbins to Visualize Dense Data",
+        "Demo: Using Hexbins to Map the Distribution of Data",
+        "Activity: Create a Hexbin Map of Taxi Pickups"
+    ],
+    "Geospatial Analysis: Map Shapes Using Spatial Files": [
+        "Module Overview",
+        "Concept: Using Spatial Files to Map Data",
+        "Demo: Creating a Map of London Greenbelt Areas",
+        "Activity: Map and Analyze a Railway Network"
+    ],
+    "Dashboarding: Guide Analysis with Context Filters": [
+        "Module Overview",
+        "Demo: Adding Context to Dashboard Filter Actions",
+        "Activity: Use Context Filters to Control Filter Actions"
+    ],
+    "Course Survey": [
+        "Hey Data Rock Star, we would appreciate your feedback! (optional)"
+    ]
+};
+
+const sqlEdX = {
+    "Introduction": [
+        "Introduction to Relational Databases",
+        "Basic SQL Syntax",
+        "Setting Up Your SQL Environment"
+    ],
+    "Querying": [
+        "Basic SELECT Queries",
+        "Filtering Data with WHERE",
+        "Sorting Results with ORDER BY"
+    ],
+    "Relating": [
+        "Understanding Relationships in SQL",
+        "Inner Joins",
+        "Outer Joins",
+        "Self Joins"
+    ],
+    "Designing": [
+        "Database Normalization",
+        "Entity-Relationship Diagrams (ERD)",
+        "Creating Tables and Schemas"
+    ],
+    "Writing": [
+        "Writing Complex Queries",
+        "Using Subqueries",
+        "Common Table Expressions (CTEs)"
+    ],
+    "Viewing": [
+        "Creating and Using Views",
+        "Materialized Views",
+        "Indexed Views"
+    ],
+    "Optimizing": [
+        "Query Optimization Techniques",
+        "Indexing Strategies",
+        "Analyzing Query Performance"
+    ],
+    "Scaling": [
+        "Horizontal Scaling",
+        "Vertical Scaling",
+        "Database Sharding"
+    ]
+};
+
+const sqlCoursera = {
+    "SQL for Data Science": [
+        "Data Manipulation with SQL",
+        "Working with Multiple Tables",
+        "Advanced SQL Functions"
+    ],
+    "Database Management": [
+        "Transaction Management",
+        "Backup and Recovery Strategies",
+        "Security and Access Control"
+    ],
+    "Data Analysis with SQL": [
+        "Writing Complex Queries",
+        "Window Functions",
+        "Handling Null Values"
+    ]
+};
+
+const sqlHarvard = {
+    "Data Science: SQL Basics": [
+        "Introduction to Relational Databases",
+        "Basic CRUD Operations",
+        "Sorting and Filtering Data"
+    ],
+    "Advanced Database Topics": [
+        "Stored Procedures and Triggers",
+        "Optimizing Query Performance",
+        "Database Scalability"
+    ],
+    "Data Warehousing": [
+        "ETL Processes",
+        "Data Marts and OLAP",
+        "Big Data Technologies"
+    ]
+};
+
+const sqlLinkedIn = {
+    "Learning SQL": [
+        "SQL Fundamentals",
+        "Creating and Modifying Tables",
+        "Querying with JOINs"
+    ],
+    "SQL for Data Analysts": [
+        "Aggregating Data",
+        "Pivot Tables in SQL",
+        "Advanced Data Manipulation"
+    ],
+    "Performance Tuning": [
+        "Indexing Strategies",
+        "Query Optimization Techniques",
+        "Monitoring Database Performance"
+    ]
+};
+
+const sqlCodecademy = {
+    "Learn SQL": [
+        "Basic SQL Commands",
+        "Filtering and Sorting Results",
+        "Working with Multiple Tables"
+    ],
+    "Intermediate SQL": [
+        "Subqueries and CTEs",
+        "Window Functions",
+        "Advanced Joins"
+    ],
+    "SQL Projects": [
+        "Building a Database from Scratch",
+        "Analyzing Real-World Data",
+        "Optimizing Database Design"
+    ]
+};
+
+const statusOptions = ["Not Started", "In Progress", "Closed"];
+
+function createTable(tableName, topics) {
+    const table = document.getElementById(tableName);
+    table.innerHTML = ""; // Clear table content
+    const thead = table.createTHead();
+    const row = thead.insertRow();
+    const headers = ["Date", "Topics", "Subtopics", "Status"];
+    headers.forEach(headerText => {
+        const headerCell = document.createElement("th");
+        headerCell.textContent = headerText;
+        row.appendChild(headerCell);
+    });
+
+    const tbody = table.createTBody();
+    for (const topic in topics) {
+        createTableRow(tbody, topic, null); // Topic row
+        topics[topic].forEach(subtopic => {
+            createTableRow(tbody, topic, subtopic);
+        });
+        updateTopicStatus(tbody, topic);
+    }
+}
+
+function createTableRow(table, topic, subtopic) {
+    const row = table.insertRow();
+    const dateCell = row.insertCell();
+    const topicCell = row.insertCell();
+    const subtopicCell = row.insertCell();
+    const statusCell = row.insertCell();
+
+    if (subtopic === null) {
+        row.classList.add("topic-row");
+        topicCell.colSpan = 3;
+        topicCell.textContent = topic;
+        return;
+    }
+
+    const dateInput = document.createElement("input");
+    dateInput.type = "date";
+    dateCell.appendChild(dateInput);
+
+    topicCell.textContent = topic;
+    subtopicCell.textContent = subtopic;
+
+    const statusSelect = document.createElement("select");
+    statusOptions.forEach(option => {
+        const opt = document.createElement("option");
+        opt.value = option;
+        opt.text = option;
+        statusSelect.appendChild(opt);
+    });
+    statusCell.appendChild(statusSelect);
+
+    const storedData = JSON.parse(localStorage.getItem(topic + "-" + subtopic));
+    if (storedData) {
+        dateInput.value = storedData.date;
+        statusSelect.value = storedData.status;
+    }
+
+    dateInput.addEventListener('change', saveData);
+    statusSelect.addEventListener('change', saveData);
+
+    function saveData() {
+        const data = { date: dateInput.value, status: statusSelect.value };
+        localStorage.setItem(topic + "-" + subtopic, JSON.stringify(data));
+        updateTopicStatus(table, topic);
+    }
+}
+
+function updateTopicStatus(table, topic) {
+    const subtopicRows = Array.from(table.rows).filter(row => row.cells[1].textContent === topic && !row.classList.contains('topic-row'));
+    const allClosed = subtopicRows.every(row => row.cells[3].querySelector('select').value === 'Closed');
+
+    const topicRow = Array.from(table.rows).find(row => row.cells[0].textContent === topic && row.classList.contains('topic-row'));
+
+    if (topicRow) {
+        topicRow.cells[0].textContent = topic + (allClosed ? " (Closed)" : "");
+        localStorage.setItem(topic, allClosed ? "Closed" : "Open");
+    }
+}
+
+createTable("tableauTableFundamentals", topicsFundamentals);
+createTable("tableauTableIntermediate", topicsIntermediate);
+createTable("tableauTableAdvanced", topicsAdvanced);
+createTable("sqlTableEdX", sqlEdX);
+createTable("sqlTableCoursera", sqlCoursera);
+createTable("sqlTableHarvard", sqlHarvard);
+createTable("sqlTableLinkedIn", sqlLinkedIn);
+createTable("sqlTableCodecademy", sqlCodecademy);
+
+function openTab(tabName) {
+    const tabs = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabs.length; i++) {
+        tabs[i].style.display = "none";
+    }
+    document.getElementById(tabName).style.display = "block";
+
+    const tabButtons = document.querySelectorAll('#tabs button');
+    tabButtons.forEach(button => button.classList.remove('active'));
+    document.getElementById(tabName + 'TabButton').classList.add('active');
+
+    if (tabName === 'Ignition') {
+        document.getElementById('Tableau').style.display = 'none';
+        document.getElementById('SQL').style.display = 'none';
+    }
+}
+
+function openSubTab(subTabName) {
+    const subTabs = document.getElementsByClassName("sub-tab-content");
+    for (let i = 0; i < subTabs.length; i++) {
+        subTabs[i].style.display = "none";
+    }
+    document.getElementById(subTabName).style.display = "block";
+
+    const subTabButtons = document.querySelectorAll('.sub-tabs button');
+    subTabButtons.forEach(button => button.classList.remove('active'));
+    event.target.classList.add('active');
+}
+
+openTab('Ignition'); // Set Ignition as default tab
+
+</script>
+
+</body>
+</html>
